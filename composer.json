@@ -1,7 +1,7 @@
 {
-    "name": "funkjedi/composer-include-files",
+    "name": "0.0.0/composer-include-files",
     "type": "composer-plugin",
-    "description": "Include files at a higher priority than autoload files.",
+    "description": "Include files at a higher priority than autoload files. Useful for overriding Laravel helpers.",
     "keywords": ["composer", "autoload"],
     "homepage": "https://github.com/funkjedi/composer-include-files",
     "license": "MIT",
@@ -9,6 +9,10 @@
         {
             "name": "Tim Robertson",
             "email": "funkjedi@gmail.com"
+        },
+        {
+            "name": "Theodore R. Smith",
+            "email": "theodore@phpexperts.pro"
         }
     ],
     "require": {

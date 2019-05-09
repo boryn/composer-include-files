@@ -5,7 +5,7 @@ When using the Composer Autoloader if you need project files included prior to f
 ## Installation
 
 ```bash
-composer require funkjedi/composer-include-files
+composer require 0.0.0/composer-include-files
 ```
 
 ## Usage
