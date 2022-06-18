@@ -25,5 +25,8 @@
     },
     "extra": {
         "class": "ComposerIncludeFiles\\Plugin"
+    },
+    "require-dev": {
+        "composer/composer": "^2.0"
     }
 }

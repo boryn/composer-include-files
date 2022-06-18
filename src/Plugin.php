@@ -5,12 +5,13 @@ namespace ComposerIncludeFiles;
 use Composer\Composer;
 use Composer\EventDispatcher\EventSubscriberInterface;
 use Composer\IO\IOInterface;
-use Composer\Plugin\PluginEvents;
 use Composer\Plugin\PluginInterface;
+use Composer\Script\ScriptEvents;
 use ComposerIncludeFiles\Composer\AutoloadGenerator;
 use Composer\Package\CompletePackage;
-use Composer\Script\Event;
+use Composer\Script\Event as ScriptEvent;
 use Composer\Util\Filesystem;
+use Symfony\Component\VarDumper\VarDumper;
 
 class Plugin implements PluginInterface, EventSubscriberInterface
 {
@@ -42,7 +43,8 @@ class Plugin implements PluginInterface, EventSubscriberInterface
 	 */
 	public function deactivate(Composer $composer, IOInterface $io)
 	{
-		// do nothing
+		$this->composer = $composer;
+		$this->generator = new AutoloadGenerator($composer->getEventDispatcher(), $io);
 	}
 
 	/**
@@ -51,7 +53,8 @@ class Plugin implements PluginInterface, EventSubscriberInterface
 	 */
 	public function uninstall(Composer $composer, IOInterface $io)
 	{
-		// do nothing
+		$this->composer = $composer;
+		$this->generator = new AutoloadGenerator($composer->getEventDispatcher(), $io);
 	}
 
 	/**
@@ -60,11 +63,12 @@ class Plugin implements PluginInterface, EventSubscriberInterface
 	public static function getSubscribedEvents()
 	{
 	    return array(
+			ScriptEvents::POST_INSTALL_CMD => 'dumpFiles',
 			'post-autoload-dump' => 'dumpFiles',
 		);
 	}
 
-	public function dumpFiles(Event $event)
+	public function dumpFiles(ScriptEvent $event)
 	{
 	    // var to hold the include files
         $extraIncludeFiles = [];
@@ -115,3 +119,4 @@ class Plugin implements PluginInterface, EventSubscriberInterface
         }
 	}
 }
+
