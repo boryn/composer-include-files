@@ -10,7 +10,7 @@ composer require 0.0.0/composer-include-files
 
 ## Usage
 
-Just add the files you need included using `"include_files"` and they will be include prior to any files included by your dependencies.
+Just add the files you need included using `"include_files"` and they will be included prior to any files included by your dependencies.
 
 ```json
 // composer.json (project)
@@ -21,6 +21,23 @@ Just add the files you need included using `"include_files"` and they will be in
             "/path/to/another/file/you/want/to/include"
         ]
     },
+}
+```
+
+Composer v2.2 includes a new security feature: https://getcomposer.org/doc/06-config.md#allow-plugins
+
+*As of Composer 2.2.0, the allow-plugins option adds a layer of security allowing you to restrict which Composer plugins are able to execute code during a Composer run.*
+
+So as well you need to add this library to the allowed plugins in your `composer.json` file like this:
+
+
+```json
+{
+    "config": {
+        "allow-plugins": {
+            "0.0.0/composer-include-files": true
+        }
+    }
 }
 ```
 
